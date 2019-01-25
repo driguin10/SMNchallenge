@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.fragment_dashboard">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="15dp"
+           android:orientation="horizontal">
+           <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Resumo : "/>
+           <TextView
+               android:id="@+id/valor_resumo"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Lucro de R$ 5555555 "/>
+       </LinearLayout>
+
+       <lecho.lib.hellocharts.view.PieChartView
+           android:id="@+id/grafico"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent" >
+       </lecho.lib.hellocharts.view.PieChartView>
+
+   </LinearLayout>
+
+</FrameLayout>

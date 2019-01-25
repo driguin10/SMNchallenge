@@ -17,7 +17,7 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,9 +26,18 @@
             android:name=".inicio.login"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".contato.novoContato" />
-        <activity android:name=".informacoes" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <activity android:name=".informacoes"
+            ><meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".informacoes" /></activity>
         <activity android:name=".resumo.resumoAtividades" />
-        <activity android:name=".novaConta"></activity>
+        <activity android:name=".novaConta"/>
     </application>
+
+
+
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.desafio.rodrigo.smnchallenge.resumo;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
@@ -9,15 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import com.desafio.rodrigo.smnchallenge.R;
 import com.desafio.rodrigo.smnchallenge.contato.fragment_contatos;
-import com.desafio.rodrigo.smnchallenge.loja.fragment_lojas;
+import com.desafio.rodrigo.smnchallenge.dashboard.fragment_dashboard;
+import com.desafio.rodrigo.smnchallenge.relatorio.fragment_relatorio;
+
 
 public class resumoAtividades extends AppCompatActivity {
     private com.desafio.rodrigo.smnchallenge.resumo.adapterTabResumo adapterTabResumo;
     private ViewPager mViewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +36,13 @@ public class resumoAtividades extends AppCompatActivity {
         setupViewPager(mViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_resumo);
         tabLayout.setupWithViewPager(mViewPager);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         adapterTabResumo adapter = new adapterTabResumo(getSupportFragmentManager());
-        adapter.addFragment(new fragment_lojas(), "Relatório 2018");
-        adapter.addFragment(new fragment_contatos(), "Dashboard");
+        adapter.addFragment(new fragment_relatorio(), "Relatório 2018");
+        adapter.addFragment(new fragment_dashboard(), "Dashboard");
         viewPager.setAdapter(adapter);
     }
 

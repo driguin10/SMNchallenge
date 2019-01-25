@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="130dp"
         app:titleTextColor="#ffffff" />
 
     <android.support.design.widget.TextInputLayout
@@ -97,7 +97,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/bt_acessar"
+        android:id="@+id/bt_cadastrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

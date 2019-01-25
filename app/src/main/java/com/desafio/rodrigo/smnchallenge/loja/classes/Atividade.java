@@ -3,7 +3,9 @@ package com.desafio.rodrigo.smnchallenge.loja.classes;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Atividade {
+import java.io.Serializable;
+
+public class Atividade  implements Serializable {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -15,7 +17,7 @@ public class Atividade {
     private Double entrada;
     @SerializedName("saida")
     @Expose
-    private Integer saida;
+    private Double saida;
     @SerializedName("loja_id")
     @Expose
     private Integer lojaId;
@@ -50,11 +52,11 @@ public class Atividade {
         this.entrada = entrada;
     }
 
-    public Integer getSaida() {
+    public Double getSaida() {
         return saida;
     }
 
-    public void setSaida(Integer saida) {
+    public void setSaida(Double saida) {
         this.saida = saida;
     }
 

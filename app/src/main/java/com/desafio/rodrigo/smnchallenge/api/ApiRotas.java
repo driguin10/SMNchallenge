@@ -1,5 +1,6 @@
 package com.desafio.rodrigo.smnchallenge.api;
 
+import com.desafio.rodrigo.smnchallenge.Usuario;
 import com.desafio.rodrigo.smnchallenge.autenticacao.Autenticacao;
 import com.desafio.rodrigo.smnchallenge.autenticacao.RetornoAutenticacao;
 import com.desafio.rodrigo.smnchallenge.configuracoes.configuracoes;
@@ -59,6 +60,10 @@ public interface ApiRotas {
                                      @Header("Authorization") String authKey);
 
 
+
+    @POST("/usuarios")
+    Call<ResponseBody> InserirUsuario(@Header("Authorization") String authKey,
+                                      @Body Usuario dados);
 
     //******************* SERVICE RETROFIT ******************************
     OkHttpClient okHttpClient = new OkHttpClient().newBuilder()

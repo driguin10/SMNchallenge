@@ -1,6 +1,8 @@
 package com.desafio.rodrigo.smnchallenge.loja;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +14,14 @@ import android.widget.TextView;
 
 import com.desafio.rodrigo.smnchallenge.R;
 import com.desafio.rodrigo.smnchallenge.contato.Contato;
+import com.desafio.rodrigo.smnchallenge.informacoes;
+import com.desafio.rodrigo.smnchallenge.loja.classes.Atividade;
 import com.desafio.rodrigo.smnchallenge.loja.classes.Loja;
+import com.desafio.rodrigo.smnchallenge.resumo.resumoAtividades;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,12 +51,24 @@ public class AdapterLojas extends RecyclerView.Adapter<AdapterLojas.ViewHolder>{
         holder.btDetelhes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(context, informacoes.class);
 
+                intent.putExtra("nome",item.getNome());
+                intent.putExtra("tipo",item.getTipo());
+                intent.putExtra("descricao",item.getDescricao());
+                intent.putExtra("telefone",item.getTelefone());
+                intent.putExtra("site",item.getSite());
+                intent.putExtra("latitude",item.getLatitude());
+                intent.putExtra("longitude",item.getLongitude());
+                context.startActivity(intent);
             }
         });
         holder.btResumo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(context, resumoAtividades.class);
+                intent.putExtra("atividades",(Serializable)item.getAtividades());
+                context.startActivity(intent);
 
             }
         });
