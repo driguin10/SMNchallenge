@@ -67,7 +67,7 @@ public class AdapterContatos extends RecyclerView.Adapter<AdapterContatos.ViewHo
                         intent.putExtra("nome", item.getNome());
                         intent.putExtra("telefone", item.getTelefone());
                         intent.putExtra("imagem", item.getImagem());
-                        context.startActivity(intent);
+                        ((Activity) context).startActivityForResult(intent,1);
                 }
             }
         });
