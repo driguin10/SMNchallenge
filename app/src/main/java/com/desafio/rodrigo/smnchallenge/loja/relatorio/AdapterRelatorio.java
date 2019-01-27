@@ -1,24 +1,14 @@
-package com.desafio.rodrigo.smnchallenge.relatorio;
+package com.desafio.rodrigo.smnchallenge.loja.relatorio;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.desafio.rodrigo.smnchallenge.R;
-import com.desafio.rodrigo.smnchallenge.informacoes;
 import com.desafio.rodrigo.smnchallenge.loja.classes.Atividade;
-import com.desafio.rodrigo.smnchallenge.loja.classes.Loja;
-import com.desafio.rodrigo.smnchallenge.resumo.resumoAtividades;
-
 import java.util.List;
 
 public class AdapterRelatorio extends RecyclerView.Adapter<AdapterRelatorio.ViewHolder>{
@@ -49,13 +39,13 @@ public class AdapterRelatorio extends RecyclerView.Adapter<AdapterRelatorio.View
                 holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.corNeutro));
                 break;
             case 1:
-                //verde maior
+                //lucro
                 holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.corVerde));
                 break;
 
             case -1:
                 holder.card.setCardBackgroundColor(context.getResources().getColor(R.color.corVermelho));
-                //menor
+                //prejuizo
                 break;
         }
 
@@ -90,6 +80,4 @@ public class AdapterRelatorio extends RecyclerView.Adapter<AdapterRelatorio.View
             card = (CardView) itemView.findViewById(R.id.card_relatorio);
         }
     }
-
-
 }

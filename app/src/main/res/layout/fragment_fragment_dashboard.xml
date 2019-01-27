@@ -25,11 +25,58 @@
                android:text="Lucro de R$ 5555555 "/>
        </LinearLayout>
 
-       <lecho.lib.hellocharts.view.PieChartView
-           android:id="@+id/grafico"
+       <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="match_parent" >
-       </lecho.lib.hellocharts.view.PieChartView>
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+           <lecho.lib.hellocharts.view.PieChartView
+               android:id="@+id/grafico"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_weight="1"/>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical"
+               android:layout_weight="3">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:orientation="horizontal">
+                   <ImageView
+                       android:layout_width="38dp"
+                       android:layout_height="38dp"
+                       android:background="@color/corVerdeLegendaGraf"/>
+                   <TextView
+                       android:id="@+id/legendaEntradas"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="8dp"
+                       android:layout_marginLeft="5dp"
+                       android:text="Entradas :"/>
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:orientation="horizontal">
+                   <ImageView
+                       android:layout_width="38dp"
+                       android:layout_height="38dp"
+                       android:background="@color/corVermelhoLegendaGraf"/>
+                   <TextView
+                       android:id="@+id/legendaSaidas"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="8dp"
+                       android:layout_marginLeft="5dp"
+                       android:text="Entradas :"/>
+               </LinearLayout>
+           </LinearLayout>
+       </LinearLayout>
+
 
    </LinearLayout>
 

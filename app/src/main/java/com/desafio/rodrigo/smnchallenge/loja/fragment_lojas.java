@@ -6,23 +6,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.desafio.rodrigo.smnchallenge.R;
 import com.desafio.rodrigo.smnchallenge.api.ApiRotas;
+import com.desafio.rodrigo.smnchallenge.auxiliares.Loading;
 import com.desafio.rodrigo.smnchallenge.configuracoes.configuracoes;
-import com.desafio.rodrigo.smnchallenge.contato.AdapterContatos;
-import com.desafio.rodrigo.smnchallenge.contato.Contato;
 import com.desafio.rodrigo.smnchallenge.loja.classes.Loja;
-import com.desafio.rodrigo.smnchallenge.principal;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,9 +27,9 @@ import static android.content.Context.MODE_PRIVATE;
 public class fragment_lojas extends Fragment {
     SharedPreferences sharedPreferences;
     LinearLayoutManager layout;
-    RecyclerView lista;
+    RecyclerView recyclerV;
     AdapterLojas adapter;
-    List<Loja> ListaLojas = new ArrayList<>();
+    Loading loading;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,65 +41,39 @@ public class fragment_lojas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_fragment_lojas, container, false);
-
         sharedPreferences =  v.getContext().getSharedPreferences(configuracoes.shared_preference,MODE_PRIVATE);
-        lista = (RecyclerView) v.findViewById(R.id.view_lojas);
-        lista.setHasFixedSize(true);
+        loading = new Loading(getActivity());
+        recyclerV = (RecyclerView) v.findViewById(R.id.view_lojas);
+        recyclerV.setHasFixedSize(true);
         layout = new LinearLayoutManager(getContext());
         layout.setOrientation(LinearLayoutManager.VERTICAL);
-        lista.setLayoutManager(layout);
+        recyclerV.setLayoutManager(layout);
         String token = "Bearer "+sharedPreferences.getString(configuracoes.shared_token,"");
+        loading.abrir("Aguarde...");
         ApiRotas Api = ApiRotas.retrofit.create(ApiRotas.class);
         final Call<List<Loja>> callAutenticacao = Api.listarLojas(token);
         callAutenticacao.enqueue(new Callback<List<Loja>>() {
             @Override
             public void onResponse(Call<List<Loja>> call, Response<List<Loja>> response) {
+                loading.fechar();
                 List<Loja> resposta = response.body();
                 if (response.isSuccessful()) {
-
                    adapter = new AdapterLojas(resposta, getContext());
-                    lista.setAdapter(adapter);
+                    recyclerV.setAdapter(adapter);
                 }
                 else
                 {
-                    Toast.makeText(getContext(),"Não listou",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Erro ao listar",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Loja>> call, Throwable t) {
+                loading.fechar();
                 Toast.makeText(getContext(),"Houve um erro",Toast.LENGTH_SHORT).show();
             }
         });
-
 
         return  v;
     }
-
-    public void listar(){
-        ApiRotas Api = ApiRotas.retrofit.create(ApiRotas.class);
-        final Call<List<Loja>> callAutenticacao = Api.listarLojas("Bearer "+sharedPreferences.getString(configuracoes.shared_token,""));
-        callAutenticacao.enqueue(new Callback<List<Loja>>() {
-            @Override
-            public void onResponse(Call<List<Loja>> call, Response<List<Loja>> response) {
-                List<Loja> resposta = response.body();
-                if (response.isSuccessful()) {
-                    Log.d("xex","listou");
-                    Log.d("xex","listou"+resposta.get(0).getDescricao());
-                }
-                else
-                {
-                    Log.d("xex","não listou");
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Loja>> call, Throwable t) {
-                Toast.makeText(getContext(),"Houve um erro",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
 }

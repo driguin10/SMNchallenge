@@ -1,33 +1,23 @@
-package com.desafio.rodrigo.smnchallenge;
+package com.desafio.rodrigo.smnchallenge.loja;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.desafio.rodrigo.smnchallenge.contato.novoContato;
+import com.desafio.rodrigo.smnchallenge.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.picasso.Picasso;
+
 
 public class informacoes extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnMapClickListener, LocationListener {
     TextView loja_nome, loja_descricao,loja_telefone,loja_site,loja_tipo;
@@ -39,17 +29,6 @@ public class informacoes extends FragmentActivity implements OnMapReadyCallback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informacoes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_informacoes);
-
-          // getToolbar will be method in Activity that returns Toolbar!!  don't use getSupportActionBar for getting toolbar!!
-// get action bar
-
-
-
-
-
-
-
-
 
         loja_nome = (TextView) findViewById(R.id.loja_nome);
         loja_descricao = (TextView) findViewById(R.id.loja_descricao);
@@ -84,7 +63,6 @@ public class informacoes extends FragmentActivity implements OnMapReadyCallback,
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(mapIntent);
                 }
-
             }
         });
     }
@@ -92,10 +70,8 @@ public class informacoes extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap map) {
         LatLng userLocation = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
-
         map.addMarker(new MarkerOptions().position(userLocation).title(nome));
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 16.0f));
-
     }
 
     @Override

@@ -8,22 +8,19 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.desafio.rodrigo.smnchallenge.R;
 import com.desafio.rodrigo.smnchallenge.api.ApiRotas;
+import com.desafio.rodrigo.smnchallenge.auxiliares.Loading;
+import com.desafio.rodrigo.smnchallenge.auxiliares.Permissao;
 import com.desafio.rodrigo.smnchallenge.configuracoes.configuracoes;
 import com.squareup.picasso.Picasso;
-
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -35,14 +32,17 @@ import static android.content.Context.MODE_PRIVATE;
 public class AdapterContatos extends RecyclerView.Adapter<AdapterContatos.ViewHolder>{
     private List<Contato> Lista;
     private Context context;
-    private RecyclerView lis;
+    private RecyclerView recyclerV;
     SharedPreferences sharedPreferences;
+    Loading loading;
 
     public AdapterContatos(List<Contato> lista, Context c,RecyclerView recicler) {
         context = c;
         Lista = lista;
-        lis = recicler;
+        recyclerV = recicler;
         sharedPreferences = c.getSharedPreferences(configuracoes.shared_preference,MODE_PRIVATE);
+        loading = new Loading((Activity)c);
+
     }
 
     @Override
@@ -61,12 +61,15 @@ public class AdapterContatos extends RecyclerView.Adapter<AdapterContatos.ViewHo
         holder.btEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,novoContato.class);
-                intent.putExtra("id",item.getId());
-                intent.putExtra("nome",item.getNome());
-                intent.putExtra("telefone",item.getTelefone());
-                intent.putExtra("imagem",item.getImagem());
-                context.startActivity(intent);
+               Permissao permissao = new Permissao((Activity)context);
+                if (permissao.validaPermissoes((Activity)context)) {
+                        Intent intent = new Intent(context, novoContato.class);
+                        intent.putExtra("id", item.getId());
+                        intent.putExtra("nome", item.getNome());
+                        intent.putExtra("telefone", item.getTelefone());
+                        intent.putExtra("imagem", item.getImagem());
+                        context.startActivity(intent);
+                }
             }
         });
         holder.cardContato.setOnLongClickListener(new View.OnLongClickListener() {
@@ -78,18 +81,19 @@ public class AdapterContatos extends RecyclerView.Adapter<AdapterContatos.ViewHo
                         .setIcon(R.drawable.icone_apagar)
                         .setPositiveButton("sim", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                loading.abrir("Aguarde...");
                                 String token = "Bearer "+sharedPreferences.getString(configuracoes.shared_token,"");
                                 ApiRotas Api = ApiRotas.retrofit.create(ApiRotas.class);
-                                final Call<ResponseBody> callAutenticacao = Api.ApagarContato(String.valueOf(item.getId()),token);
+                                final Call<ResponseBody> callAutenticacao = Api.apagarContato(String.valueOf(item.getId()),token);
                                 callAutenticacao.enqueue(new Callback<ResponseBody>() {
                                         @Override
                                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            loading.fechar();
                                             ResponseBody resposta = response.body();
                                             if (response.isSuccessful()) {
-                                                Toast.makeText(context, "Excluido - " , Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "Excluido" , Toast.LENGTH_SHORT).show();
                                                 Lista.remove(position);
-                                                lis.setAdapter(new AdapterContatos(Lista,context,lis));
+                                                recyclerV.setAdapter(new AdapterContatos(Lista,context,recyclerV));
 
                                             } else {
                                                 Toast.makeText(context, "Houve um erro", Toast.LENGTH_SHORT).show();
@@ -98,8 +102,8 @@ public class AdapterContatos extends RecyclerView.Adapter<AdapterContatos.ViewHo
 
                                         @Override
                                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                                            Log.d("xex","err:"+ t.getMessage().toString());
+                                            loading.fechar();
+                                            Toast.makeText(context, "Houve um erro", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                             }

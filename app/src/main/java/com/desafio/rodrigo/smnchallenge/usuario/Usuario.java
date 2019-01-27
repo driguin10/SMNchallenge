@@ -1,4 +1,4 @@
-package com.desafio.rodrigo.smnchallenge;
+package com.desafio.rodrigo.smnchallenge.usuario;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

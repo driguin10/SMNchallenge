@@ -5,25 +5,23 @@
       <map>
         <entry key="imageWizard">
           <value>
-            <PersistentState />
-          </value>
-        </entry>
-        <entry key="vectorWizard">
-          <value>
             <PersistentState>
               <option name="children">
                 <map>
-                  <entry key="vectorAssetStep">
+                  <entry key="imageAssetPanel">
                     <value>
                       <PersistentState>
                         <option name="children">
                           <map>
-                            <entry key="clipartAsset">
+                            <entry key="launcherLegacy">
                               <value>
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/F:/androidStudio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_back_black_24dp.xml" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="backgroundColor" value="2c2c2c" />
+                                      <entry key="imageAsset" value="C:\Users\Rodrigo\Desktop\imagens desafio\icone.png" />
+                                      <entry key="outputName" value="icone_smn" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,9 +31,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="icone_voltar" />
-                            <entry key="sourceFile" value="C:\Users\Rodrigo" />
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>

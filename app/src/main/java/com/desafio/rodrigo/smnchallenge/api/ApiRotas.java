@@ -1,6 +1,6 @@
 package com.desafio.rodrigo.smnchallenge.api;
 
-import com.desafio.rodrigo.smnchallenge.Usuario;
+import com.desafio.rodrigo.smnchallenge.usuario.Usuario;
 import com.desafio.rodrigo.smnchallenge.autenticacao.Autenticacao;
 import com.desafio.rodrigo.smnchallenge.autenticacao.RetornoAutenticacao;
 import com.desafio.rodrigo.smnchallenge.configuracoes.configuracoes;
@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -28,42 +27,56 @@ import retrofit2.http.Path;
 
 public interface ApiRotas {
 
+    //------------------------AUTENTICACAO---------------------------------
 
     @POST("/autenticacao")
     Call<RetornoAutenticacao> autenticar(@Body Autenticacao dados);
 
+    //------------------------LOJAS----------------------------------------
+
     @GET("/lojas")
     Call<List<Loja>> listarLojas(@Header("Authorization") String authKey);
 
+    @GET("/lojas/{id}")
+    Call<Loja> buscarLoja(@Path("id") String id,
+            @Header("Authorization") String authKey);
 
-
+    //--------------------------CONTATOS---------------------------------------
 
 
     @GET("/contatos")
     Call<List<Contato>> listarContatos(@Header("Authorization") String authKey);
 
+
     @GET("/contatos/{id}")
-    Call<Contato> BuscarContato(@Path("id") String id,
-                                        @Header("Authorization") String authKey);
+    Call<Contato> buscarContato(@Path("id") String id,
+                                @Header("Authorization") String authKey);
 
     @POST("/contatos")
-    Call<ResponseBody> InserirContato(@Header("Authorization") String authKey,
+    Call<ResponseBody> inserirContato(@Header("Authorization") String authKey,
                                         @Body Contato dados);
 
     @PUT("/contatos/{id}")
-    Call<ResponseBody> AtualizarContato(@Path("id") String id,
+    Call<ResponseBody> atualizarContato(@Path("id") String id,
                                         @Header("Authorization") String authKey,
                                         @Body Contato dados);
 
+
     @DELETE("/contatos/{id}")
-    Call<ResponseBody> ApagarContato(@Path("id") String id,
+    Call<ResponseBody> apagarContato(@Path("id") String id,
                                      @Header("Authorization") String authKey);
 
-
+    //------------------------------USUARIOS--------------------------------------
 
     @POST("/usuarios")
-    Call<ResponseBody> InserirUsuario(@Header("Authorization") String authKey,
-                                      @Body Usuario dados);
+    Call<ResponseBody> inserirUsuario(@Body Usuario dados);
+
+    @GET("/usuarios/{id}")
+    Call<List<Usuario>> buscaUsuario(@Path("id") String id,
+                                    @Header("Authorization") String authKey);
+    //-----------------------------------------------------------------------------
+
+
 
     //******************* SERVICE RETROFIT ******************************
     OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
@@ -78,7 +91,7 @@ public interface ApiRotas {
 
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(configuracoes.WebService)
+            .baseUrl(configuracoes.webService)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();

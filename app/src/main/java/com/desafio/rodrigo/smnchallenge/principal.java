@@ -16,28 +16,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.desafio.rodrigo.smnchallenge.api.ApiRotas;
 import com.desafio.rodrigo.smnchallenge.configuracoes.configuracoes;
-import com.desafio.rodrigo.smnchallenge.contato.AdapterContatos;
-import com.desafio.rodrigo.smnchallenge.contato.Contato;
 import com.desafio.rodrigo.smnchallenge.contato.fragment_contatos;
 import com.desafio.rodrigo.smnchallenge.inicio.login;
-import com.desafio.rodrigo.smnchallenge.loja.classes.Loja;
 import com.desafio.rodrigo.smnchallenge.loja.fragment_lojas;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +32,7 @@ public class principal extends AppCompatActivity
     TextView NomeDrawer;
     TextView EmailDrawerr;
     SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,17 +41,12 @@ public class principal extends AppCompatActivity
         setSupportActionBar(toolbar);
         sharedPreferences = getSharedPreferences(configuracoes.shared_preference,MODE_PRIVATE);
 
-        //Toast.makeText(this,"OK: "+sharedPreferences.getString(configuracoes.shared_token,""),Toast.LENGTH_SHORT ).show();
-
-
         LinearLayout btSair = (LinearLayout) findViewById(R.id.bt_sair);
         btSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                new AlertDialog.Builder(principal.this)
-                        .setTitle("Excluir")
+            new AlertDialog.Builder(principal.this)
+                        .setTitle("Sair")
                         .setMessage("Deseja realmente sair?")
                         .setIcon(R.drawable.icone_exit)
                         .setPositiveButton("sim", new DialogInterface.OnClickListener() {
@@ -85,12 +68,6 @@ public class principal extends AppCompatActivity
                         })
                         .show();
 
-
-
-
-
-
-
             }
         });
 
@@ -109,9 +86,10 @@ public class principal extends AppCompatActivity
         NomeDrawer = (TextView) headerView.findViewById(R.id.nome_usuario);
 
 
+        //dados era para vim da api --
         EmailDrawerr.setText("Rodrigo Pereira Gonçalves");
         NomeDrawer.setText("driguinpg10@gmail.com");
-        abrirViewContatos();
+        carregaViewContatos("");
     }
 
     @Override
@@ -126,26 +104,32 @@ public class principal extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.principal, menu);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+               // carregaViewContatos(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                carregaViewContatos(newText);
+                return true;
+            }
+        });
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -156,16 +140,22 @@ public class principal extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_contatos) {
-            abrirViewContatos();
+
+
+                carregaViewContatos("");
+
+
 
         } else if (id == R.id.nav_lojas) {
-            Fragment fragment = null;
-            fragment = new fragment_lojas();
-            if (fragment != null) {
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame_principal, fragment);
-                ft.commitAllowingStateLoss();
-                getSupportActionBar().setTitle("Nossas Lojas");
+
+                Fragment fragment = null;
+                fragment = new fragment_lojas();
+                if (fragment != null) {
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.content_frame_principal, fragment);
+                    ft.commitAllowingStateLoss();
+                    getSupportActionBar().setTitle("Nossas Lojas");
+
             }
         }
 
@@ -174,43 +164,18 @@ public class principal extends AppCompatActivity
         return true;
     }
 
-    public void abrirViewContatos(){
+    public void carregaViewContatos(String texto){
         Fragment fragment = null;
         fragment = new fragment_contatos();
         if (fragment != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("texto", texto);
+            fragment.setArguments(bundle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame_principal, fragment);
             ft.commitAllowingStateLoss();
             getSupportActionBar().setTitle("Contatos");
         }
     }
-
-   /* public void buscarContatos(){
-        String token = "Bearer "+sharedPreferences.getString(configuracoes.shared_token,"");
-
-        ApiRotas Api = ApiRotas.retrofit.create(ApiRotas.class);
-        final Call<Contato> callAutenticacao = Api.BuscarContato("81",token);
-        callAutenticacao.enqueue(new Callback<Contato>() {
-            @Override
-            public void onResponse(Call<Contato> call, Response<Contato> response) {
-                Contato resposta = response.body();
-                if (response.isSuccessful()) {
-                    EmailDrawerr.setText();
-                    NomeDrawer.setText();
-                    Toast.makeText(principal.this,"ok"+resposta.getNome(),Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(principal.this,"Não listou",Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Contato> call, Throwable t) {
-                Toast.makeText(principal.this,"Houve um erro",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
-
 
 }

@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
         <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
         <item name="homeAsUpIndicator">@drawable/icone_voltar</item>
         <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
@@ -16,6 +17,9 @@
     </style>
 
     <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
@@ -24,6 +28,24 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="CircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">#fff</item>
+    </style>
 
+
+
+
+    <style name="inputPersonalizado" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#fff</item>
+        <item name="colorAccent">#fff</item>
+
+        <item name="homeAsUpIndicator">@drawable/icone_voltar</item>
+        <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
+
+    </style>
+
+    <style name="HelperTextAppearance" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">#fff</item>
+    </style>
 
 </resources>

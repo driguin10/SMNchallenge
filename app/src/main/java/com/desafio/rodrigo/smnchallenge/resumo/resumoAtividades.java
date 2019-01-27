@@ -1,6 +1,5 @@
 package com.desafio.rodrigo.smnchallenge.resumo;
 
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
@@ -11,9 +10,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.desafio.rodrigo.smnchallenge.R;
-import com.desafio.rodrigo.smnchallenge.contato.fragment_contatos;
 import com.desafio.rodrigo.smnchallenge.dashboard.fragment_dashboard;
-import com.desafio.rodrigo.smnchallenge.relatorio.fragment_relatorio;
+import com.desafio.rodrigo.smnchallenge.loja.relatorio.fragment_relatorio;
 
 
 public class resumoAtividades extends AppCompatActivity {

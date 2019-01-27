@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".novaConta"
+    tools:context=".usuario.novaConta"
     android:background="@drawable/fundocadastro"
     android:orientation="vertical">
 
@@ -22,6 +22,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/usuario_nome"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlineBox"
+        android:theme="@style/inputPersonalizado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -30,17 +31,19 @@
         android:textColorHint="#fff"
         app:boxBackgroundColor="#8b4d4c4c"
         app:boxStrokeColor="#a0ababab"
-        app:helperText="*obrigatorio">
+        app:helperText="*obrigatorio"
+        app:helperTextTextAppearance="@style/HelperTextAppearance">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/usuario_nomel_input"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nome"
             android:inputType="textEmailAddress"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
-            android:textColorHint="#ffffff"
+            android:textColorHint="#fff"
             android:text=""
 
             />
@@ -49,6 +52,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/usuario_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlineBox"
+        android:theme="@style/inputPersonalizado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -57,7 +61,8 @@
         android:textColorHint="#fff"
         app:boxBackgroundColor="#8b4d4c4c"
         app:boxStrokeColor="#a0ababab"
-        app:helperText="*obrigatorio">
+        app:helperText="*obrigatorio"
+        app:helperTextTextAppearance="@style/HelperTextAppearance">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/usuario_email_input"
@@ -67,22 +72,22 @@
             android:inputType="textEmailAddress"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
-            android:textColorHint="#ffffff"
-            android:text="flavio@smn.com.br"
-
-            />
+            android:textColorHint="#ffffff" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/usuario_senha"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlineBox"
+        android:theme="@style/inputPersonalizado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:textColorHint="#fff"
         app:boxBackgroundColor="#8b4d4c4c"
         app:boxStrokeColor="#a0ababab"
-        app:helperText="*obrigatorio">
+        app:helperText="*obrigatorio"
+        app:helperTextTextAppearance="@style/HelperTextAppearance"
+        >
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/usuario_senha_input"
@@ -90,7 +95,6 @@
             android:layout_height="wrap_content"
             android:hint="senha"
             android:inputType="textPassword"
-            android:text="teste123"
             android:textColor="#fff"
             android:textColorHighlight="#fff"
             android:textColorHint="#ffffff" />
