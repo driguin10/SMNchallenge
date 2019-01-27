@@ -42,7 +42,6 @@ public class AdapterContatos extends RecyclerView.Adapter<AdapterContatos.ViewHo
         recyclerV = recicler;
         sharedPreferences = c.getSharedPreferences(configuracoes.shared_preference,MODE_PRIVATE);
         loading = new Loading((Activity)c);
-
     }
 
     @Override
